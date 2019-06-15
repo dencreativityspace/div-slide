@@ -13,7 +13,7 @@
  * @param {boolean} [param.swipe=false]
  * @param {boolean} [param.throwsSlideIndexError=false]
  *
- * @version 1.0.0
+ * @version 1.0.1
  *
  * @author Gennaro Landolfi <gennarolandolfi@codedwork.it>
  */
@@ -125,7 +125,7 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
      * @see {@link https://github.com/dencreativityspace/interval|interval}
      */
     const interval = (() => {
-        if (duration > 0 && Interval) {
+        if (duration > 0 && typeof Interval === 'function') {
             new Interval();
         }
 
