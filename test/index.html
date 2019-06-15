@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Slideshow - Test</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="../dist/slideshow.css">
+
+        <style>
+            #slideshow-1 {
+                width: 50%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="slideshow-1" class="slideshow">
+            <div class="slide current">
+                <img src="images/600.png">
+
+                <div>
+                    <h1>Test 1</h1>
+                    <p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="images/600.png">
+
+                <div>
+                    <h1>Test 2</h1>
+                    <p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+
+            <div class="slide">
+                <img src="images/300.png">
+
+                <div>
+                    <h1>Test 3</h1>
+                    <p>Lorem ipsum dolor sit amet</p>
+                </div>
+            </div>
+        </div>
+
+        <script src="../src/slideshow.js"></script>
+        <script>
+            var slideshow = new Slideshow({
+                container: document.getElementById('slideshow-1')
+            });
+        </script>
+    </body>
+</html>
