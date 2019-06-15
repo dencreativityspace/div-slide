@@ -1,4 +1,23 @@
-function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', slideSelector = '.slide', currentSelector = '.current', duration = 0, cycle = true, swipe = false, throwsOpenIndexError: throwsSlideIndexError = false}) {
+/**
+ * Slideshow that uses pure HTML for each slide element.
+ *
+ * @constructor
+ *
+ * @param {object} param
+ * @param {HTMLElement|string} [param.container="#slideshow"] Container of all the slides.
+ * @param {string} [param.slideshowSelector=".slideshow"] Class selector for the slideshow.
+ * @param {string} [param.slideSelector=".slide"] Class selector for all the slides.
+ * @param {string} [param.currentSelector=".current"] Class selector for the current slide.
+ * @param {number} [param.duration=0]
+ * @param {boolean} [param.cycle=true]
+ * @param {boolean} [param.swipe=false]
+ * @param {boolean} [param.throwsSlideIndexError=false]
+ *
+ * @version 1.0.0
+ *
+ * @author Gennaro Landolfi <gennarolandolfi@codedwork.it>
+ */
+function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', slideSelector = '.slide', currentSelector = '.current', duration = 0, cycle = true, swipe = false, throwsSlideIndexError = false}) {
     // Type-checks
     if (typeof container === 'string') {
         container = document.querySelector(container);
@@ -177,11 +196,11 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
     // Public methods:
 
     /**
-     * Shows the previous `<figure>`. If the ovelay is closed, opens it.
+     * Shows the previous slide.
      *
      * @param   {boolean}   [cycleState]   Determines if the counter must cycle.
      *
-     * @emits FigureGallery#fig-gallery:prev
+     * @emits Slideshow#slideshow:prev
      *
      * @return  {this}
      */
@@ -197,28 +216,25 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
 
             prevEvent.initCustomEvent('slideshow:prev', false, false, {
                 current: current,
-                next: oldCurrent,
-                active: that.getCurrentSlide()
+                next: oldCurrent
             });
         }
         else {
             prevEvent = new CustomEvent('slideshow:prev', {
                 detail: {
                     current: current,
-                    next: oldCurrent,
-                    active: that.getCurrentSlide()
+                    next: oldCurrent
                 }
             });
         }
 
         /**
-         * Event triggered when the gallery gets navigated to the previous element.
+         * Event triggered when the slideshow gets navigated to the previous element.
          *
-         * @event FigureGallery#fig-gallery:prev
+         * @event Slideshow#slideshow:prev
          * @type {object}
-         * @property {HTMLElement} current - Current active <figure> element in container.
-         * @property {HTMLElement} next - Old active <figure> element in container which succeeds the current.
-         * @property {HTMLElement} active - Active <figure> element in overlay.
+         * @property {HTMLElement} current - Current slide element in container.
+         * @property {HTMLElement} next - Old current slide element in container which succeeds the current.
          */
         container.dispatchEvent(prevEvent);
 
@@ -226,11 +242,11 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
     };
 
     /**
-     * Shows the next `<figure>`. If the ovelay is closed, opens it.
+     * Shows the next slide.
      *
      * @param   {boolean}   [cycleState]   Determines if the counter must cycle.
      *
-     * @emits FigureGallery#fig-gallery:next
+     * @emits Slideshow#slideshow:next
      *
      * @return  {this}
      */
@@ -246,28 +262,25 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
 
             nextEvent.initCustomEvent('slideshow:next', false, false, {
                 current: current,
-                prev: oldCurrent,
-                active: that.getCurrentSlide()
+                prev: oldCurrent
             });
         }
         else {
             nextEvent = new CustomEvent('slideshow:next', {
                 detail: {
                     current: current,
-                    prev: oldCurrent,
-                    active: that.getCurrentSlide()
+                    prev: oldCurrent
                 }
             });
         }
 
         /**
-         * Event triggered when the gallery gets navigated to the next element.
+         * Event triggered when the slideshow gets navigated to the next element.
          *
-         * @event FigureGallery#fig-gallery:next
+         * @event Slideshow#slideshow:next
          * @type {object}
-         * @property {HTMLElement} current - Current active <figure> element in container.
-         * @property {HTMLElement} prev - Old active <figure> element in container which precedes the current.
-         * @property {HTMLElement} active - Active <figure> element in overlay.
+         * @property {HTMLElement} current - Current slide element in container.
+         * @property {HTMLElement} prev - Old current slide element in container which precedes the current.
          */
         container.dispatchEvent(nextEvent);
 
@@ -275,13 +288,13 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
     };
 
     /**
-     * Sets the current `<slide>`.
+     * Sets the current slide.
      *
      * @param   {number|HTMLElement|Node}   slide   Index of the element or the
      *                                          element itself to bet setted as
      *                                          current.
      *
-     * @emits FigureGallery#fig-gallery:setted
+     * @emits Slideshow#slideshow:setted
      *
      * @return  {this}
      *
@@ -327,28 +340,25 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
 
             settedEvent.initCustomEvent('slideshow:setted', false, false, {
                 current: current,
-                old: oldCurrent,
-                active: that.getCurrentSlide()
+                old: oldCurrent
             });
         }
         else {
             settedEvent = new CustomEvent('slideshow:setted', {
                 detail: {
                     current: current,
-                    old: oldCurrent,
-                    active: that.getCurrentSlide()
+                    old: oldCurrent
                 }
             });
         }
 
         /**
-         * Event triggered when the gallery gets setted on a specific element.
+         * Event triggered when the slideshow gets setted on a specific element.
          *
-         * @event FigureGallery#fig-gallery:setted
+         * @event Slideshow#slideshow:setted
          * @type {object}
-         * @property {HTMLElement} current - Current active <slide> element in container.
-         * @property {HTMLElement} old - Old active <slide> element in container.
-         * @property {HTMLElement} active - Active <slide> element in overlay.
+         * @property {HTMLElement} current - Current slide element in container.
+         * @property {HTMLElement} old - Old current slide element in container.
          */
         container.dispatchEvent(settedEvent);
 
@@ -393,8 +403,21 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
      * Returns the swipe handler instance, if exists.
      *
      * @return  {SwipeEvent|null}
+     *
+     * @see {@link https://github.com/dencreativityspace/swipe-event|swipe-event}
      */
     this.getSwipeHandler = () => {
         return swipeHandler;
+    };
+
+    /**
+     * Returns the swipe handler instance, if exists.
+     *
+     * @return  {Interval|null}
+     *
+     * @see {@link https://github.com/dencreativityspace/interval|interval}
+     */
+    this.getInterval = () => {
+        return interval;
     };
 }
