@@ -15,7 +15,7 @@
  * @param {boolean} [param.swipe=false]
  * @param {boolean} [param.throwsSlideIndexError=false]
  *
- * @version 1.0.0
+ * @version 1.0.2
  *
  * @author Gennaro Landolfi <gennarolandolfi@codedwork.it>
  */
@@ -168,8 +168,14 @@ function Slideshow(_ref) {
 
 
   var interval = function () {
-    if (duration > 0 && Interval) {
-      new Interval();
+    if (duration > 0 && typeof Interval === 'function') {
+      new Interval({
+        callback: function callback() {
+          that.next();
+        },
+        ms: duration,
+        start: false
+      });
     }
 
     return null;
@@ -463,4 +469,8 @@ function Slideshow(_ref) {
   this.getInterval = function () {
     return interval;
   };
+
+  if (interval) {
+    interval.startInterval();
+  }
 }

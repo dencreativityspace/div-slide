@@ -2,7 +2,7 @@
 
 ## Slideshow
 **Kind**: global class  
-**Version**: 1.0.0  
+**Version**: 1.0.1  
 **Author:** Gennaro Landolfi <gennarolandolfi@codedwork.it>  
 
 * [Slideshow](#Slideshow)
