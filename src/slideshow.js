@@ -125,8 +125,8 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
      * @see {@link https://github.com/dencreativityspace/interval|interval}
      */
     const interval = (() => {
-        if (duration > 0 && typeof Interval === 'function') {
-            new Interval({
+        if (duration > 0 && 'Interval' in window) {
+            return new Interval({
                 callback: () => {
                     that.next();
                 },
