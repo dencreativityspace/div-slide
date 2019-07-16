@@ -428,6 +428,11 @@ function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', 
     };
 
     if (interval) {
-        interval.startInterval();
+        interval.startInterval({
+            callback: () => {
+                that.next();
+            },
+            ms: duration
+        });
     }
 }
