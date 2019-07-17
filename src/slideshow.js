@@ -13,7 +13,7 @@
  * @param {boolean} [param.swipe=false]
  * @param {boolean} [param.throwsSlideIndexError=false]
  *
- * @version 1.0.2
+ * @version 1.0.3
  *
  * @author Gennaro Landolfi <gennarolandolfi@codedwork.it>
  */

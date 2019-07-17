@@ -168,8 +168,8 @@ function Slideshow(_ref) {
 
 
   var interval = function () {
-    if (duration > 0 && typeof Interval === 'function') {
-      new Interval({
+    if (duration > 0 && 'Interval' in window) {
+      return new Interval({
         callback: function callback() {
           that.next();
         },
@@ -339,7 +339,7 @@ function Slideshow(_ref) {
   /**
    * Sets the current slide.
    *
-   * @param   {number|HTMLElement|Node}   slide   Index of the element or the
+   * @param   {string|number|HTMLElement|Node}   slide   Index of the element or the
    *                                          element itself to bet setted as
    *                                          current.
    *
@@ -356,7 +356,11 @@ function Slideshow(_ref) {
 
   this.set = function (slide) {
     if (slide == null) {
-      throw new Error('The given element is not a valid value. Please, insert an integer or a DOM element.');
+      throw new Error('The given element is not a valid value. Please, insert a string, an integer or a DOM element.');
+    }
+
+    if (typeof slide === 'string') {
+      slide = document.querySelector(slide);
     }
 
     if (typeof slide === 'number') {
@@ -374,7 +378,7 @@ function Slideshow(_ref) {
         throw new Error('The given element is not in this slideshow.');
       }
     } else {
-      throw new Error('The given element is not a valid value. Please, insert an integer or a DOM element.');
+      throw new Error('The given element is not a valid value. Please, insert a string, an integer or a DOM element.');
     }
 
     var oldCurrent = current;
@@ -471,6 +475,11 @@ function Slideshow(_ref) {
   };
 
   if (interval) {
-    interval.startInterval();
+    interval.startInterval({
+      callback: function callback() {
+        that.next();
+      },
+      ms: duration
+    });
   }
 }
