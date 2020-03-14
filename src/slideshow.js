@@ -3,21 +3,21 @@
  *
  * @constructor
  *
- * @param {object} param
- * @param {HTMLElement|string} [param.container="#slideshow"] Container of all the slides.
- * @param {string} [param.slideshowSelector=".slideshow"] Class selector for the slideshow.
- * @param {string} [param.slideSelector=".slide"] Class selector for all the slides.
- * @param {string} [param.currentSelector=".current"] Class selector for the current slide.
- * @param {number} [param.duration=0]
- * @param {boolean} [param.cycle=true]
- * @param {boolean} [param.swipe=false]
- * @param {boolean} [param.throwsSlideIndexError=false]
+ * @param {object} _ref
+ * @param {HTMLElement|string} [_ref.container="#slideshow"] Container of all the slides.
+ * @param {string} [_ref.slideshowSelector=".slideshow"] Class selector for the slideshow.
+ * @param {string} [_ref.slideSelector=".slide"] Class selector for all the slides.
+ * @param {string} [_ref.currentSelector=".current"] Class selector for the current slide.
+ * @param {number} [_ref.duration=0] Duration of each slide in ms.
+ * @param {boolean} [_ref.cycle=true] Determines if when the end is reached, the slideshow should restart or not.
+ * @param {boolean} [_ref.swipe=false] Determines if swipe event support should be enabled or not.
+ * @param {boolean} [_ref.throwsSlideIndexError=false] If true, an error will be thrown when the user refers to a slide index that doesn't exists.
  *
  * @version 1.0.3
  *
  * @author Gennaro Landolfi <gennarolandolfi@codedwork.it>
  */
-function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', slideSelector = '.slide', currentSelector = '.current', duration = 0, cycle = true, swipe = false, throwsSlideIndexError = false}) {
+function Slideshow({container = '#slideshow', slideshowSelector = '.slideshow', slideSelector = '.slide', currentSelector = '.current', duration = 0, cycle = true, swipe = false, throwsSlideIndexError = false} = {}) {
     // Type-checks
     if (typeof container === 'string') {
         container = document.querySelector(container);
